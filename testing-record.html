@@ -1,6 +1,6 @@
-
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,7 +20,8 @@
             border-collapse: collapse;
         }
 
-        th, td {
+        th,
+        td {
             border: 1px solid #aab3bd;
             padding: .75rem;
             text-align: left;
@@ -34,8 +35,35 @@
         .table-wrapper {
             overflow-x: auto;
         }
+
+
+        .screenshot-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+            gap: 1.5rem;
+        }
+
+        .screenshot-gallery figure {
+            margin: 0;
+            padding: 1rem;
+            border: 1px solid #d3d9df;
+            border-radius: .5rem;
+        }
+
+        .screenshot-gallery img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .screenshot-gallery figcaption {
+            margin-top: .75rem;
+            text-align: center;
+            font-weight: bold;
+        }
     </style>
 </head>
+
 <body>
     <h1>L6 - Testing Record</h1>
 
@@ -63,79 +91,118 @@
                     <td>320px viewport</td>
                     <td>Passed visual review</td>
                     <td>Images, captions, headings,
-                    and navigation fit the narrow layout.</td>
+                        and navigation fit the narrow layout.</td>
                 </tr>
                 <tr>
                     <td>768px viewport</td>
                     <td>Passed</td>
                     <td>Navigation stacks above the article.
-                    The Yamamoto photograph was centered
-                    for improved presentation.</td>
+                        The Yamamoto photograph was centered
+                        for improved presentation.</td>
                 </tr>
                 <tr>
                     <td>1280px viewport</td>
                     <td>Passed visual review</td>
                     <td>Grid columns and text wrapping
-                    display correctly.</td>
+                        display correctly.</td>
                 </tr>
                 <tr>
                     <td>200% browser zoom</td>
                     <td>Corrected and retested</td>
                     <td>A sticky sidebar overlap was found.
-                    Adding the story-layout container
-                    corrected the issue.</td>
+                        Adding the story-layout container
+                        corrected the issue.</td>
                 </tr>
                 <tr>
                     <td>Keyboard navigation</td>
                     <td>Passed</td>
                     <td>Navigation links can receive focus
-                    and activate their section links.</td>
+                        and activate their section links.</td>
                 </tr>
                 <tr>
                     <td>Clip-path fallback</td>
                     <td>Passed</td>
                     <td>The Muneyama photograph remains
-                    visible when clipping is disabled.</td>
+                        visible when clipping is disabled.</td>
                 </tr>
                 <tr>
                     <td>Shape-outside fallback</td>
                     <td>Passed normal-flow test</td>
                     <td>Disabling the float restores
-                    the Yamamoto figure to normal flow.
-                    Removing shape-outside alone
-                    produced little visible difference.</td>
+                        the Yamamoto figure to normal flow.
+                        Removing shape-outside alone
+                        produced little visible difference.</td>
                 </tr>
                 <tr>
                     <td>Long-title test</td>
                     <td>Passed</td>
                     <td>The extended title wrapped without
-                    interfering with the header badge.</td>
+                        interfering with the header badge.</td>
                 </tr>
                 <tr>
                     <td>Content-growth test</td>
                     <td>Completed</td>
                     <td>A paragraph was duplicated to
-                    examine layout behavior and then restored.</td>
+                        examine layout behavior and then restored.</td>
                 </tr>
                 <tr>
                     <td>HTML validation</td>
                     <td>Passed</td>
                     <td>W3C Nu HTML Checker reported
-                    zero errors and zero warnings.</td>
+                        zero errors and zero warnings.</td>
                 </tr>
                 <tr>
                     <td>CSS validation</td>
                     <td>Reviewed</td>
                     <td>The W3C CSS3 profile reported
-                    three CSS Shapes property errors.
-                    CSS Portal initially reported zero
-                    errors and one deprecation warning.
-                    The deprecated declaration was replaced.</td>
+                        three CSS Shapes property errors.
+                        CSS Portal initially reported zero
+                        errors and one deprecation warning.
+                        The deprecated declaration was replaced.</td>
                 </tr>
             </tbody>
         </table>
     </div>
+
+    <h2>Testing Screenshots</h2>
+
+    <p>
+        The following screenshots document responsive
+        layouts, browser zoom, and code validation.
+    </p>
+
+    <div class="screenshot-gallery">
+        <figure>
+            <img src="screenshots/mobile-320.png" alt="Website tested at 320px">
+            <figcaption>320px Mobile Layout</figcaption>
+        </figure>
+
+        <figure>
+            <img src="screenshots/tablet-768.png" alt="Website tested at 768px">
+            <figcaption>768px Tablet Layout</figcaption>
+        </figure>
+
+        <figure>
+            <img src="screenshots/desktop-1280.png" alt="Website tested at 1280px">
+            <figcaption>1280px Desktop Layout</figcaption>
+        </figure>
+
+        <figure>
+            <img src="screenshots/zoom-200.png" alt="Website tested at 200 percent zoom">
+            <figcaption>200% Browser Zoom</figcaption>
+        </figure>
+
+        <figure>
+            <img src="screenshots/html-validation.png" alt="HTML validation results">
+            <figcaption>HTML Validation</figcaption>
+        </figure>
+
+        <figure>
+            <img src="screenshots/css-validation.png" alt="CSS validation results">
+            <figcaption>CSS Validation</figcaption>
+        </figure>
+    </div>
+
 </body>
+
 </html>
-
-
