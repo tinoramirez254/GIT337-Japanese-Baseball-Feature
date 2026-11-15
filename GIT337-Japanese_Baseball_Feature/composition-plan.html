@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Composition Plan</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.5;
+            max-width: 90rem;
+            margin: auto;
+            padding: 1rem;
+            color: #191919;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: .6rem;
+            border: 1px solid #999;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background: #f1f1f1;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>L6 · Composition Plan</h1>
+    <p>Complete one row for every positioned, layered, clipped, rounded, or shape-wrapped element. Duplicate rows as
+        needed.</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Element</th>
+                <th>Content purpose</th>
+                <th>Normal-flow baseline</th>
+                <th>Chosen technique and why</th>
+                <th>Containing block / stacking context</th>
+                <th>Fallback or disengagement</th>
+                <th>Required test</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Yamamoto card image</td>
+                <td>Showcase a Japanese baseball card while supporting the story about future MLB stars.</td>
+                <td>The photograph and caption appear in normal document flow.</td>
+                <td>CSS float and shape-outside allow text to wrap around the image on larger screens. Border-radius
+                    softens the image corners.</td>
+                <td>The article section contains the floated figure using display: flow-root. No additional stacking
+                    context is needed.</td>
+                <td>Below 52rem, the figure returns to normal flow. If shape-outside is unsupported, the image and text
+                    remain readable.</td>
+                <td>Test at 320px, 768px, and 1280px, plus 200% zoom. Verify wrapping, caption readability, and fallback
+                    behavior.</td>
+            </tr>
+
+            <tr>
+                <td>NPB Collector's Feature badge</td>
+                <td>Identify the editorial feature and add a visual detail to the header.</td>
+                <td>The badge appears after the introduction in normal document flow.</td>
+                <td>Relative positioning on the header and absolute positioning on the badge keep it anchored in the
+                    upper-right corner.</td>
+                <td>The feature-header is the containing block because it uses position: relative. No additional
+                    stacking context is required.</td>
+                <td>At screen widths of 52rem or smaller, the badge uses position: static and returns to normal flow
+                    below the introduction.</td>
+                <td>Test at 320px, 768px, and 1280px. Check that the badge does not overlap the headline at 200% zoom or
+                    when the title is longer.</td>
+            </tr>
+
+            <tr>
+                <td>In This Story sidebar</td>
+                <td>Help readers navigate between the three main sections of the article.</td>
+                <td>The navigation appears before the article content in normal document flow.</td>
+                <td>CSS position: sticky keeps the navigation visible while scrolling at desktop widths.</td>
+                <td>The sidebar is a grid item inside the .story-layout container. This container bounds the sticky
+                    sidebar so it stops before the documentation section. The --layer-sticky variable controls its
+                    z-index.</td>
+                <td>Below 52rem, the sidebar remains in normal flow. Browsers without sticky support display regular
+                    navigation.</td>
+                <td>Test at 320px, 768px, and 1280px, plus 200% zoom. Confirm the sidebar stays visible without covering
+                    article content.</td>
+            </tr>
+
+            <tr>
+                <td>Editorial pull quote</td>
+                <td>Highlight an important statement about Japanese baseball card collecting.</td>
+                <td>The quotation appears in normal document flow between two paragraphs.</td>
+                <td>Relative positioning, a negative margin, and z-index create a controlled overlap into the article
+                    gutter. A shadow adds visual depth.</td>
+                <td>The quote creates its own stacking context through position: relative and z-index: 10. It remains
+                    within the article section.</td>
+                <td>Below 52rem, the negative margin and raised positioning are removed, allowing the quote to return to
+                    its normal layout.</td>
+                <td>Test at 320px, 768px, and 1280px. Verify no overlap with navigation, text, or keyboard focus at 200%
+                    zoom.</td>
+            </tr>
+
+            <tr>
+                <td>Article stacking context and layer system</td>
+                <td>Keep the article's decorative elements organized without interfering with navigation or other
+                    content.</td>
+                <td>All article content remains in normal document flow and follows the HTML source order.</td>
+                <td>CSS isolation: isolate creates a stacking context for the article. A tokenized layer scale uses base
+                    (0), raised (10), sticky (20), and overlay (30). The overlay token is reserved for future use.</td>
+                <td>The article creates its own stacking context. The pull quote uses the raised layer inside it, while
+                    the sticky sidebar uses the sticky layer outside it.</td>
+                <td>Without isolation support, the article remains readable. The layout does not depend on overlapping
+                    content for its meaning.</td>
+                <td>Inspect stacking contexts in browser developer tools. Test at 320px, 768px, and 1280px, plus 200%
+                    zoom. Verify links remain clickable and focus indicators remain visible.</td>
+            </tr>
+
+            <tr>
+                <td>Rui Muneyama feature photograph</td>
+                <td>Introduce Japanese baseball card designs through an original collectible card photograph.</td>
+                <td>The photograph and caption appear together in a figure within normal document flow.</td>
+                <td>CSS clip-path creates symmetrical angled corners for a modern editorial appearance. Border-radius
+                    rounds the surrounding figure container.</td>
+                <td>The figure remains inside the article's stacking context. Its relative positioning does not create
+                    an additional stacking context.</td>
+                <td>If clip-path is unsupported or disabled, the complete rectangular photograph remains visible with
+                    its caption.</td>
+                <td>Test at 320px, 768px, 1280px, and 200% zoom. Disable clip-path in Firefox Developer Tools to verify
+                    the fallback.</td>
+            </tr>
+
+        </tbody>
+    </table>
+</body>
+
+</html>
